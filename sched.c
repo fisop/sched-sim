@@ -5,8 +5,21 @@
 
 extern struct proc proc[];
 
+int current = 0;
+
 struct proc* select_next(){
-    return NULL;
+    struct proc* next = NULL;
+
+    for (int i = 0; i < NUMPROC; i++) {
+        int candidate = (current + i) % NUMPROC;
+
+        if (proc[candidate].status == RUNNABLE) {
+            next = &proc[candidate];
+            current = candidate;
+        }
+    }
+    
+    return next;
 }
 
 void scheduler(){
