@@ -6,7 +6,19 @@
 extern struct proc proc[];
 
 struct proc* select_next(){
-    return NULL;
+    int next_runtime = INT_MAX;
+    struct proc* next = NULL;
+
+    for (int i = 0; i < NUMPROC; i++) {
+        if (proc[i].status == RUNNABLE) {
+            if (proc[i].runtime <= next_runtime) {
+                next_runtime = proc[i].runtime;
+                next = &proc[i];
+            }
+        }
+    }
+    
+    return next;
 }
 
 void scheduler(){
