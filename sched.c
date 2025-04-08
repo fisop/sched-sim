@@ -6,7 +6,20 @@
 extern struct proc proc[];
 
 struct proc* select_next(){
-    return NULL;
+    int current_min = INT_MAX;
+    struct proc* next = NULL;
+
+    for (int i = 0; i < NUMPROC; i++) {
+        if (proc[i].status == RUNNABLE) {
+            int ticket = rand();
+            if (ticket < current_min) {
+                current_min = ticket;
+                next = &proc[i];
+            }
+        }
+    }
+    
+    return next;
 }
 
 void scheduler(){
