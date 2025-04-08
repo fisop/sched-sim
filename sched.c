@@ -10,7 +10,7 @@ int current = 0;
 struct proc* select_next(){
     struct proc* next = NULL;
 
-    for (int i = 0; i < NUMPROC; i++) {
+    for (int i = 1; i <= NUMPROC; i++) {
         int candidate = (current + i) % NUMPROC;
 
         if (proc[candidate].status == RUNNABLE) {
